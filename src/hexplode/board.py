@@ -1,22 +1,24 @@
 from typing import List, Optional
 
+from hexplode.models import Board, Tile
 
-def create_board(size: int = 4):
+
+def create_board(size: int = 4) -> Board:
     # first create a grid for easy calculation of neighbours
     grid = _create_grid(size)
 
-    tiles = []
+    tiles = {}
 
     for r, row in enumerate(grid):
         for c, id_ in enumerate(row):
             if id_ is None:
                 continue
 
-            tiles.append(
-                {"id": id_, "neighbours": _get_neighbours(r, c, grid)}
+            tiles[id_] = Tile(
+                counters=0, player=None, neighbours=_get_neighbours(r, c, grid)
             )
 
-    return tiles
+    return Board(tiles=tiles)
 
 
 def _create_grid(size: int) -> List[List[Optional[int]]]:
@@ -41,7 +43,9 @@ def _create_grid(size: int) -> List[List[Optional[int]]]:
     return grid
 
 
-def _get_neighbours(r: int, c: int, grid: List[List[Optional[int]]]):
+def _get_neighbours(
+    r: int, c: int, grid: List[List[Optional[int]]]
+) -> List[int]:
     grid_len = len(grid)
     perturbations = ((-1, -1), (-1, 0), (0, -1), (0, 1), (1, 0), (1, 1))
 
