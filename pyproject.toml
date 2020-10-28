@@ -17,6 +17,9 @@ authors = ["tcbegley <tomcbegley@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 pydantic = "^1.7"
+fastapi = "^0.61.1"
+uvicorn = "^0.12.2"
+asyncio-redis = "^0.16.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

@@ -1,6 +1,7 @@
+import json
 from typing import Dict, List, Optional
 
-from pydantic import BaseModel, root_validator
+from pydantic import BaseModel, constr, root_validator
 
 
 class Tile(BaseModel):
@@ -19,4 +20,15 @@ class Tile(BaseModel):
 
 
 class Board(BaseModel):
+    size: int
     tiles: Dict[int, Tile]
+
+
+class Game(BaseModel):
+    id: constr(regex=r"[a-z]{3}-[a-z]{4}-[a-z]{3}")  # type: ignore  # noqa
+    board: Board
+    player: int
+
+    @classmethod
+    def from_string(cls, game_str: str) -> "Game":
+        return cls(**json.loads(game_str))
