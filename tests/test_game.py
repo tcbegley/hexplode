@@ -3,7 +3,8 @@ import itertools
 import pytest
 
 from hexplode.board import create_board
-from hexplode.game import place_counter
+from hexplode.game import check_for_win, place_counter
+from hexplode.models import Board, Tile
 
 
 @pytest.mark.parametrize("tile_id,repeat", [(1, 1), (2, 2), (5, 3)])
@@ -94,3 +95,22 @@ def test_capture(tile_id, player):
     for nbr_id in board.tiles[tile_id].neighbours:
         assert board.tiles[nbr_id].counters == 2
         assert board.tiles[nbr_id].player == player
+
+
+def test_win_condition():
+    board = create_board(3)
+    assert check_for_win(board) is None
+
+    place_counter(1, 1, board)
+    assert check_for_win(board) is None
+
+    place_counter(2, 2, board)
+    assert check_for_win(board) is None
+
+    board = Board(
+        tiles={
+            0: Tile(counters=4, player=1, neighbours=[]),
+            1: Tile(counters=0, player=None, neighbours=[]),
+        }
+    )
+    assert check_for_win(board) == 1

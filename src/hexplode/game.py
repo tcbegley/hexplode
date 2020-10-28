@@ -1,6 +1,25 @@
 from copy import deepcopy
+from typing import Optional
 
 from hexplode.models import Board, Tile
+
+
+def check_for_win(board: Board) -> Optional[int]:
+    """
+    Return id of winning player. Game ends when both players have played at
+    least one counter and one player has captured all other counters on the
+    board.
+    """
+    # no winners until both players have made at least one move
+    if sum(t.counters for t in board.tiles.values()) <= 1:
+        return None
+
+    players = [t.player for t in board.tiles.values() if t.player is not None]
+
+    if len(set(players)) == 1:
+        return players[0]
+
+    return None
 
 
 def place_counter(tile_id: int, player: int, board: Board) -> Board:
