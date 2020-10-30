@@ -1,0 +1,7 @@
+{
+    "arrowParens": "avoid",
+    "bracketSpacing": true,
+    "svelteStrictMode": true,
+    "svelteBracketNewLine": true,
+    "svelteSortOrder": "scripts-markup-styles"
+  }

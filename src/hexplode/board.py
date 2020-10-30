@@ -15,7 +15,7 @@ def create_board(size: int = 4) -> Board:
                 continue
 
             tiles[id_] = Tile(
-                counters=0, player=None, neighbours=_get_neighbours(r, c, grid)
+                count=0, player=None, neighbours=_get_neighbours(r, c, grid)
             )
 
     return Board(size=size, tiles=tiles)

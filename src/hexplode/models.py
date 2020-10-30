@@ -5,16 +5,16 @@ from pydantic import BaseModel, constr, root_validator
 
 
 class Tile(BaseModel):
-    counters: int
+    count: int
     player: Optional[int]
     neighbours: List[int]
 
     @root_validator
     def player_set_if_counters_placed(cls, values):
-        counters = values.get("counters")
+        count = values.get("count")
         player = values.get("player")
 
-        if counters > 0 and player is None:
+        if count > 0 and player is None:
             raise ValueError("Player must be set if tile contains counters")
         return values
 

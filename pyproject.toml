@@ -13,12 +13,13 @@ name = "hexplode"
 version = "0.1.0"
 description = "Pluggable Python implementation of a BBC Micro classic"
 authors = ["tcbegley <tomcbegley@gmail.com>"]
+# exclude = ["src/frontend"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
 pydantic = "^1.7"
 fastapi = "^0.61.1"
-uvicorn = "^0.12.2"
+uvicorn = {extras = ["standard"], version = "^0.12.2"}
 asyncio-redis = "^0.16.0"
 
 [tool.poetry.dev-dependencies]

@@ -11,7 +11,7 @@ def check_for_win(board: Board) -> Optional[int]:
     board.
     """
     # no winners until both players have made at least one move
-    if sum(t.counters for t in board.tiles.values()) <= 1:
+    if sum(t.count for t in board.tiles.values()) <= 1:
         return None
 
     players = [t.player for t in board.tiles.values() if t.player is not None]
@@ -38,7 +38,7 @@ def place_counter(tile_id: int, player: int, board: Board) -> Board:
 
     new_board = deepcopy(board)
     new_board.tiles[tile_id] = Tile(
-        counters=tile.counters + 1, player=player, neighbours=tile.neighbours
+        count=tile.count + 1, player=player, neighbours=tile.neighbours
     )
 
     return _explode(new_board)
@@ -54,22 +54,22 @@ def _explode(board: Board) -> Board:
         return [
             tile
             for tile in board.tiles.values()
-            if tile.counters >= len(tile.neighbours)
+            if tile.count >= len(tile.neighbours)
         ]
 
     while to_update := get_update_candidates():
         for tile in to_update:
             n_nbrs = len(tile.neighbours)
-            tile.counters -= n_nbrs
+            tile.count -= n_nbrs
 
             for nbr_id in tile.neighbours:
                 nbr_tile = board.tiles[nbr_id]
                 # spread to neighbouring tiles
-                nbr_tile.counters += 1
+                nbr_tile.count += 1
                 # neighbouring tiles are conquered
                 nbr_tile.player = tile.player
 
-            if tile.counters == 0:
+            if tile.count == 0:
                 tile.player = None
 
     return board
