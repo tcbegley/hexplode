@@ -22,7 +22,9 @@
     "start": "npm run dev",
     "serve": "sirv public",
     "build": "cross-env NODE_ENV=production webpack",
-    "dev": "webpack-dev-server --content-base public"
+    "dev": "webpack-dev-server --content-base public",
+    "lint": "prettier --check .",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "axios": "^0.21.0"

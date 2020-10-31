@@ -9,7 +9,7 @@
   {#if $players.winner}
     <GameOver />
   {/if}
-  <Board />
+  <Board size="{$board.size}" />
 {:else}
   <CreateGame />
 {/if}

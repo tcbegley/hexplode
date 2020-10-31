@@ -7,6 +7,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Use Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install Prettier
+        working-directory: src/frontend
+        run: npm install prettier
+      - name: Lint JavaScript
+        working-directory: src/frontend
+        run: npm run lint
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
