@@ -1,8 +1,12 @@
 <script>
-  export let min, max;
+  export let min, max, handleChange;
+
+  let value = 4;
+
+  $: handleChange(value);
 </script>
 
-<input type="range" min="{min}" max="{max}" />
+<input type="range" min="{min}" max="{max}" bind:value />
 
 <style>
   input {
