@@ -38,13 +38,16 @@ def place_counter(tile_id: int, player: int, board: Board) -> Board:
 
     new_board = deepcopy(board)
     new_board.tiles[tile_id] = Tile(
-        count=tile.count + 1, player=player, neighbours=tile.neighbours
+        id=tile.id,
+        count=tile.count + 1,
+        player=player,
+        neighbours=tile.neighbours,
     )
 
-    return _explode(new_board)
+    return _explode(new_board, tile_id)
 
 
-def _explode(board: Board) -> Board:
+def _explode(board: Board, start: int) -> Board:
     """
     Explode counters onto neighbouring tiles if it has as many counters as
     neighbours.
@@ -57,7 +60,15 @@ def _explode(board: Board) -> Board:
             if tile.count >= len(tile.neighbours)
         ]
 
+    updated = set()
+
     while to_update := get_update_candidates():
+        # detect cycles and break if we're stuck in one. can only happen when
+        # one player has won the game anyway
+        ids = tuple(t.id for t in to_update)
+        if ids in updated:
+            break
+
         for tile in to_update:
             n_nbrs = len(tile.neighbours)
             tile.count -= n_nbrs
@@ -71,5 +82,7 @@ def _explode(board: Board) -> Board:
 
             if tile.count == 0:
                 tile.player = None
+
+        updated.add(ids)
 
     return board

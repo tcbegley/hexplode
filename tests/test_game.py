@@ -108,8 +108,8 @@ def test_win_condition():
     board = Board(
         size=0,
         tiles={
-            0: Tile(count=4, player=1, neighbours=[]),
-            1: Tile(count=0, player=None, neighbours=[]),
+            0: Tile(id=0, count=4, player=1, neighbours=[]),
+            1: Tile(id=1, count=0, player=None, neighbours=[]),
         },
     )
     assert check_for_win(board) == 1

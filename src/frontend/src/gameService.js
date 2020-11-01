@@ -16,13 +16,20 @@ gameID.subscribe(async id => {
         players.setWinner(data.winner);
       }
     };
+    socket.onclose = event => {
+      console.log("socket closed for some reason", event);
+    };
   }
 });
 
 const createGame = async size => {
-  let res = await axios.post(`http://${process.env.HEXPLODE_BACKEND}/game`, {
-    params: { size },
-  });
+  let res = await axios.post(
+    `http://${process.env.HEXPLODE_BACKEND}/game`,
+    null,
+    {
+      params: { size },
+    }
+  );
   players.setWinner(null);
   gameID.set(res.data.id);
   board.set(res.data.board);
@@ -42,11 +49,18 @@ const placeCounter = (tileID, player) => {
   }
 };
 
-const waitForConnection = (callback, interval = 50) => {
+const waitForConnection = (callback, interval = 50, retries = 10) => {
   if (socket.readyState === 1) {
     return callback();
   }
-  setTimeout(() => waitForConnection(callback, interval), interval);
+  if (retries > 0) {
+    setTimeout(
+      () => waitForConnection(callback, interval, retries - 1),
+      interval
+    );
+  } else {
+    throw "Connection failed.";
+  }
 };
 
 export { createGame, placeCounter };

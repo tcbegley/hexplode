@@ -5,6 +5,7 @@ from pydantic import BaseModel, constr, root_validator
 
 
 class Tile(BaseModel):
+    id: int
     count: int
     player: Optional[int]
     neighbours: List[int]

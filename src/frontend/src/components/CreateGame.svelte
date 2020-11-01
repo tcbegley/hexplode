@@ -1,14 +1,14 @@
 <script>
   import { createGame } from "../gameService";
   import Button from "./Button.svelte";
-  // import Range from "./Range.svelte";
+  import Range from "./Range.svelte";
 </script>
 
 <div class="container">
   <h1>Hexplode</h1>
   <!-- <p>Set the board size then click to get started.</p> -->
-  <!-- <Range min="3" max="8" /> -->
-  <Button handleClick="{() => createGame(4)}">Start game</Button>
+  <Range min="3" max="8" />
+  <Button handleClick="{() => createGame(3)}">Start game</Button>
 </div>
 
 <style>

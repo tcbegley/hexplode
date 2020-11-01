@@ -3,7 +3,7 @@
   import { board, players } from "../stores";
   import Tile from "./Tile.svelte";
 
-  export let size = 4;
+  export let size;
 
   let containerWidth;
 

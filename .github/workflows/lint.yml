@@ -13,7 +13,7 @@ jobs:
           node-version: 12.x
       - name: Install Prettier
         working-directory: src/frontend
-        run: npm install prettier
+        run: npm install prettier prettier-plugin-svelte
       - name: Lint JavaScript
         working-directory: src/frontend
         run: npm run lint
