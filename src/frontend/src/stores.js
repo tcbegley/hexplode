@@ -2,9 +2,9 @@ import { writable } from "svelte/store";
 
 const createPlayerStore = () => {
   const { subscribe, set, update } = writable({
-    player1: "human",
-    player2: "human",
-    player: 1,
+    player1: null,
+    player2: null,
+    player: null,
     winner: null,
   });
 
@@ -13,6 +13,8 @@ const createPlayerStore = () => {
     set,
     setPlayer: player => update(state => ({ ...state, player })),
     setWinner: winner => update(state => ({ ...state, winner })),
+    setPlayer1: player1 => update(state => ({ ...state, player1 })),
+    setPlayer2: player2 => update(state => ({ ...state, player2 })),
   };
 };
 
