@@ -21,7 +21,7 @@ def create_board(size: int = 4) -> Board:
                 neighbours=_get_neighbours(r, c, grid),
             )
 
-    return Board(size=size, tiles=tiles)
+    return Board(size=size, score={}, tiles=tiles)
 
 
 def _create_grid(size: int) -> List[List[Optional[int]]]:

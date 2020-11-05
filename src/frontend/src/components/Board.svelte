@@ -23,6 +23,7 @@
   }
 </script>
 
+<div>Player 1: {$board.score[1] || 0}, Player 2: {$board.score[2] || 0}</div>
 <div class="container" bind:clientWidth="{containerWidth}">
   {#each rows as row}
     <div class="row" style="margin-top:{-0.238 * w}px">

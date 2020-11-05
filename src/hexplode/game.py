@@ -1,7 +1,7 @@
 from copy import deepcopy
 from typing import Optional
 
-from hexplode.models import Board, Tile
+from hexplode.models import Board
 
 
 def check_for_win(board: Board) -> Optional[int]:
@@ -10,13 +10,13 @@ def check_for_win(board: Board) -> Optional[int]:
     least one counter and one player has captured all other counters on the
     board.
     """
+    score = board.score
+
     # no winners until both players have made at least one move
-    if sum(t.count for t in board.tiles.values()) <= 1:
+    if len(score) <= 1:
         return None
 
-    players = [t.player for t in board.tiles.values() if t.player is not None]
-
-    if len(set(players)) == 1:
+    if len(players := [p for p, s in score.items() if s != 0]) == 1:
         return players[0]
 
     return None
@@ -37,12 +37,7 @@ def place_counter(tile_id: int, player: int, board: Board) -> Board:
         )
 
     new_board = deepcopy(board)
-    new_board.tiles[tile_id] = Tile(
-        id=tile.id,
-        count=tile.count + 1,
-        player=player,
-        neighbours=tile.neighbours,
-    )
+    new_board.increment(tile_id, player)
 
     return _explode(new_board, tile_id)
 
@@ -60,29 +55,14 @@ def _explode(board: Board, start: int) -> Board:
             if tile.count >= len(tile.neighbours)
         ]
 
-    updated = set()
-
     while to_update := get_update_candidates():
-        # detect cycles and break if we're stuck in one. can only happen when
-        # one player has won the game anyway
-        ids = tuple(t.id for t in to_update)
-        if ids in updated:
+        if check_for_win(board):
             break
 
         for tile in to_update:
-            n_nbrs = len(tile.neighbours)
-            tile.count -= n_nbrs
-
             for nbr_id in tile.neighbours:
-                nbr_tile = board.tiles[nbr_id]
-                # spread to neighbouring tiles
-                nbr_tile.count += 1
-                # neighbouring tiles are conquered
-                nbr_tile.player = tile.player
+                board.increment(nbr_id, tile.player)
 
-            if tile.count == 0:
-                tile.player = None
-
-        updated.add(ids)
+            board.decrement(tile.id, len(tile.neighbours))
 
     return board
