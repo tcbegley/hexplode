@@ -1,6 +1,7 @@
 <script>
   import { board, players } from "../stores";
   import Button from "./Button.svelte";
+
 </script>
 
 <div class="backdrop">
@@ -29,4 +30,5 @@
     margin: 4em auto;
     text-align: center;
   }
+
 </style>

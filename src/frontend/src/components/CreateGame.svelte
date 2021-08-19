@@ -13,6 +13,7 @@
     let res = await getBots();
     bots = res.data;
   });
+
 </script>
 
 <div class="container">
@@ -97,4 +98,5 @@
   .range-container span {
     margin-left: 10px;
   }
+
 </style>

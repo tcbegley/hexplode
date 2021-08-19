@@ -21,6 +21,7 @@
     }
     rows.push(row);
   }
+
 </script>
 
 <div>Player 1: {$board.score[1] || 0}, Player 2: {$board.score[2] || 0}</div>
@@ -58,4 +59,5 @@
     align-items: center;
     justify-content: center;
   }
+
 </style>

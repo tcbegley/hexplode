@@ -3,6 +3,7 @@
   import Board from "./components/Board.svelte";
   import CreateGame from "./components/CreateGame.svelte";
   import GameOver from "./components/GameOver.svelte";
+
 </script>
 
 {#if $board}

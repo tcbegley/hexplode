@@ -6,6 +6,7 @@
     player = null;
 
   let colorMap = ["#cccccc", "#ff5555", "#0099ff"];
+
 </script>
 
 <div
@@ -74,4 +75,5 @@
   .hexagon:last-child {
     margin-right: 0;
   }
+
 </style>

@@ -4,6 +4,7 @@
   let value = 4;
 
   $: handleChange(value);
+
 </script>
 
 <input type="range" min="{min}" max="{max}" bind:value />
@@ -91,4 +92,5 @@
     border-color: transparent;
     border-radius: 1rem;
   }
+
 </style>
