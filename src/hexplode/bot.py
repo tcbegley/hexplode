@@ -1,7 +1,8 @@
 import abc
 from random import choice
+from typing import List
 
-from hexplode.game import place_counter, check_for_win
+from hexplode.game import check_for_win, place_counter
 from hexplode.models import Board
 
 
@@ -43,14 +44,14 @@ class MinMaxBot(BaseBot):
         self.depth = depth
 
     @staticmethod
-    def _get_valid_moves(player, board):
+    def _get_valid_moves(player, board: Board) -> List[int]:
         # valid moves are tiles with a counter already placed, or neighbours
         # thereof. This helps reduce the search space by quite a lot leading
         # to faster decisions.
         current_tiles = [t for t in board.tiles.values() if t.player == player]
-        valid_moves = {t.id for t in current_tiles}
+        valid_moves_set = {t.id for t in current_tiles}
         for tile in current_tiles:
-            valid_moves.update(
+            valid_moves_set.update(
                 [
                     tid
                     for tid in tile.neighbours
@@ -58,6 +59,7 @@ class MinMaxBot(BaseBot):
                     or board.tiles[tid].player is None
                 ]
             )
+        valid_moves = [move for move in valid_moves_set]
         if not valid_moves:
             # if no tiles have been placed yet, start on a random edge tile
             valid_moves = [
@@ -85,7 +87,8 @@ class MinMaxBot(BaseBot):
                 return float("-inf"), None
             elif depth == 0:
                 return (
-                    board.score.get(player) - board.score.get(player % 2 + 1),
+                    board.score.get(player, 0)
+                    - board.score.get(player % 2 + 1, 0),
                     None,
                 )
 

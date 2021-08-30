@@ -1,9 +1,11 @@
 import nox
 
+nox.options.sessions = ["lint", "test"]
+
 SOURCES = ["src", "tests", "noxfile.py"]
 
 
-@nox.session()
+@nox.session
 def lint(session):
     """Lint Python source"""
     session.install("black", "flake8", "isort", "mypy")
@@ -11,6 +13,13 @@ def lint(session):
     session.run("flake8", *SOURCES)
     session.run("isort", "--check", *SOURCES)
     session.run("mypy", *SOURCES)
+
+
+@nox.session(name="format")
+def format_(session):
+    session.install("black", "isort")
+    session.run("black", *SOURCES)
+    session.run("isort", *SOURCES)
 
 
 @nox.session(python=["3.8", "3.9"])
