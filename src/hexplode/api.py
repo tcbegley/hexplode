@@ -3,15 +3,21 @@ import os
 from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 
-from hexplode.bot import RandomBot
+from hexplode.bot import MinMaxBot, RandomBot
 from hexplode.game import check_for_win
 from hexplode.models import Game
 from hexplode.store import get_store
 from hexplode.utils import generate_id
 
 STORE = get_store(os.getenv("REDIS_URL", "memory://"))
-BOTS = [{"label": "Random", "value": "random"}]
-BOT_LOOKUP = {"random": RandomBot()}
+BOTS = [
+    {"label": "Random", "value": "random"},
+    {"label": "MinMax", "value": "minmax"},
+]
+BOT_LOOKUP = {
+    "minmax": MinMaxBot(depth=3),
+    "random": RandomBot(),
+}
 
 app = FastAPI(on_startup=[STORE.connect], on_shutdown=[STORE.disconnect])
 
