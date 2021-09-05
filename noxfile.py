@@ -8,7 +8,7 @@ SOURCES = ["src", "tests", "noxfile.py"]
 @nox.session
 def lint(session):
     """Lint Python source"""
-    session.install("black", "flake8", "isort", "mypy")
+    session.install("black", "flake8", "isort", "mypy>=0.800")
     session.run("black", "--check", *SOURCES)
     session.run("flake8", *SOURCES)
     session.run("isort", "--check", *SOURCES)
@@ -22,7 +22,7 @@ def format_(session):
     session.run("isort", *SOURCES)
 
 
-@nox.session(python=["3.8", "3.9"])
+@nox.session(python=["3.9"])
 def test(session):
     """Run tests"""
     session.install("poetry")

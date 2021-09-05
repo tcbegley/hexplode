@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Optional
 
 from hexplode.models import Board, Tile
 
@@ -24,13 +24,13 @@ def create_board(size: int = 4) -> Board:
     return Board(size=size, score={}, tiles=tiles)
 
 
-def _create_grid(size: int) -> List[List[Optional[int]]]:
+def _create_grid(size: int) -> list[list[Optional[int]]]:
     grid = []
     id_ = 1
     for i in range(2 * size - 1):
         row_length = min(size + i, 3 * size - 2 - i)
 
-        row: List[Optional[int]] = []
+        row: list[Optional[int]] = []
         if i >= size:
             row.extend([None] * (2 * size - 1 - row_length))
 
@@ -47,8 +47,8 @@ def _create_grid(size: int) -> List[List[Optional[int]]]:
 
 
 def _get_neighbours(
-    r: int, c: int, grid: List[List[Optional[int]]]
-) -> List[int]:
+    r: int, c: int, grid: list[list[Optional[int]]]
+) -> list[int]:
     grid_len = len(grid)
     perturbations = ((-1, -1), (-1, 0), (0, -1), (0, 1), (1, 0), (1, 1))
 

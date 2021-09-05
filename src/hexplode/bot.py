@@ -1,6 +1,5 @@
 import abc
 from random import choice
-from typing import List
 
 from hexplode.game import check_for_win, place_counter
 from hexplode.models import Board
@@ -44,7 +43,7 @@ class MinMaxBot(BaseBot):
         self.depth = depth
 
     @staticmethod
-    def _get_valid_moves(player, board: Board) -> List[int]:
+    def _get_valid_moves(player, board: Board) -> list[int]:
         # valid moves are tiles with a counter already placed, or neighbours
         # thereof. This helps reduce the search space by quite a lot leading
         # to faster decisions.

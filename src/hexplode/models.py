@@ -1,5 +1,5 @@
 import json
-from typing import Dict, List, Optional
+from typing import Optional
 
 from pydantic import BaseModel, constr, root_validator
 
@@ -8,7 +8,7 @@ class Tile(BaseModel):
     id: int
     count: int
     player: Optional[int]
-    neighbours: List[int]
+    neighbours: list[int]
 
     @root_validator
     def player_set_if_counters_placed(cls, values):
@@ -33,8 +33,8 @@ class Tile(BaseModel):
 
 class Board(BaseModel):
     size: int
-    score: Dict[int, int]
-    tiles: Dict[int, Tile]
+    score: dict[int, int]
+    tiles: dict[int, Tile]
 
     def increment(self, tile_id: int, player: int) -> "Board":
         current_player = self.tiles[tile_id].player

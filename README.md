@@ -9,6 +9,9 @@ should be pretty usable.
 
 ## Running the app
 
+To run the app you'll need [Python 3.9+](https://www.python.org/downloads/) and
+[node](https://nodejs.org/en/) installed.
+
 Start the frontend
 
 ```sh
