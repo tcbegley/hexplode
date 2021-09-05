@@ -3,10 +3,10 @@ import os
 from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 
+from backend.store import get_store
 from hexplode.bot import MinMaxBot, RandomBot
 from hexplode.game import check_for_win
 from hexplode.models import Game
-from hexplode.store import get_store
 from hexplode.utils import generate_id
 
 STORE = get_store(os.getenv("REDIS_URL", "memory://"))

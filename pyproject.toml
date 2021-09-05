@@ -7,13 +7,15 @@ include_trailing_comma = true
 force_grid_wrap = 0
 use_parentheses = true
 ensure_newline_before_comments = true
+known_first_party = ["backend", "hexplode"]
+known_third_party = ["asyncio_redis", "fastapi", "pydantic"]
 
 [tool.poetry]
 name = "hexplode"
-version = "0.1.0"
+version = "0.2.0"
 description = "Pluggable Python implementation of a BBC Micro classic"
 authors = ["tcbegley <tomcbegley@gmail.com>"]
-# exclude = ["src/frontend"]
+exclude = ["src/frontend"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
