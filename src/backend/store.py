@@ -1,5 +1,4 @@
 import abc
-from typing import Dict
 from urllib.parse import urlparse
 
 import asyncio_redis
@@ -62,7 +61,7 @@ class GameStore(abc.ABC):
 
 class MemoryGameStore(GameStore):
     def __init__(self) -> None:
-        self.store: Dict[str, Game] = {}  # noqa
+        self.store: dict[str, Game] = {}  # noqa
 
     async def connect(self) -> None:
         pass
