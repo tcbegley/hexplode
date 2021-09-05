@@ -39,10 +39,10 @@ def place_counter(tile_id: int, player: int, board: Board) -> Board:
     new_board = deepcopy(board)
     new_board.increment(tile_id, player)
 
-    return _explode(new_board, tile_id)
+    return _explode(new_board)
 
 
-def _explode(board: Board, start: int) -> Board:
+def _explode(board: Board) -> Board:
     """
     Explode counters onto neighbouring tiles if it has as many counters as
     neighbours.
