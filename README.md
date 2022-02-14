@@ -30,10 +30,10 @@ poetry install
 then run the app with
 
 ```sh
-uvicorn backend.api:app
+poetry run uvicorn backend.api:app
 ```
 
-The app will be available at [localhost:8000](http://127.0.0.1:8000).
+The app will be available at [localhost:8080](http://127.0.0.1:8080).
 
 ## Adding bots
 
